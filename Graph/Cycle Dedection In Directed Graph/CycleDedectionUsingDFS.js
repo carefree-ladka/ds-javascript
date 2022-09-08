@@ -17,11 +17,14 @@ class Graph {
   isCyclicUtil = (source, visited, dfsVisited) => {
     visited[source] = true;
     dfsVisited[source] = true;
-    this.adj[source]?.forEach((neighbor) => {
-      if (!visited[neighbor] && this.isCyclicUtil(neighbor, visited, dfsVisited))
+    for (const neighbor of this.adj[source]) {
+      if (
+        !visited[neighbor] &&
+        this.isCyclicUtil(neighbor, visited, dfsVisited)
+      )
         return true;
       else if (dfsVisited[neighbor]) return true;
-    });
+    }
     dfsVisited[source] = false;
     return false;
   };
@@ -54,4 +57,4 @@ graph.addEdge(0, 1);
 graph.addEdge(1, 2);
 graph.addEdge(2, 0);
 graph.addEdge(2, 3);
-// graph.checkCycle(); //cycle is present
+graph.checkCycle(); //cycle is present
